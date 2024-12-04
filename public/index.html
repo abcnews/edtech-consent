@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>edtech-consent</title>
+    <!-- If you add `extractCSS:true` to your build config, add the <link> below -->
+    <!-- <link rel="stylesheet" href="index.css" /> -->
+    <script src="index.js"></script>
+    <!-- If you add `addModernJS:true` to your build config, replace the <script> above with the ones below -->
+    <!-- <script type="module" src="index_modern.js"></script> -->
+    <!-- <script nomodule src="index.js"></script> -->
+  </head>
+  <body>
+    <div data-mount id="edtechconsentX42YtextZtrue"></div>
+    <main
+      data-scheme="light"
+      data-theme="light-blue"
+      class="Main u-layout u-richtext has-caption-attributions"
+      id="content"
+    >
+      <div data-key="panel">
+        <h1>Hello {name}!</h1>
+        <p>
+          Lorem ipsum dolor sit amet. Id quas quae eum fuga temporibus ut dolores odit! A quasi alias est unde quia et
+          molestiae corrupti aut quae ipsum ut repellendus quidem. Cum explicabo error ad enim commodi ut cumque
+          architecto ab blanditiis officiis sed perferendis pariatur in dolorum illum quo officiis assumenda.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet. Id quas quae eum fuga temporibus ut dolores odit! A quasi alias est unde quia et
+          molestiae corrupti aut quae ipsum ut repellendus quidem. Cum explicabo error ad enim commodi ut cumque
+          architecto ab blanditiis officiis sed perferendis pariatur in dolorum illum quo officiis assumenda.
+        </p>
+      </div>
+
+      <div data-key="panel">
+        <p>
+          Lorem ipsum dolor sit amet. Id quas quae eum fuga temporibus ut dolores odit! A quasi alias est unde quia et
+          molestiae corrupti aut quae ipsum ut repellendus quidem. Cum explicabo error ad enim commodi ut cumque
+          architecto ab blanditiis officiis sed perferendis pariatur in dolorum illum quo officiis assumenda.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet. Id quas quae eum fuga temporibus ut dolores odit! A quasi alias est unde quia et
+          molestiae corrupti aut quae ipsum ut repellendus quidem. Cum explicabo error ad enim commodi ut cumque
+          architecto ab blanditiis officiis sed perferendis pariatur in dolorum illum quo officiis assumenda.
+        </p>
+      </div>
+    </main>
+    <!-- Mock Odyssey's loaded event so the `whenOdysseyLoaded` promise resolves -->
+    <script>
+      window.dispatchEvent(new CustomEvent('odyssey:api'));
+    </script>
+    <style>
+      main {
+        max-width: 700px;
+        margin: 0 auto;
+      }
+    </style>
+  </body>
+</html>

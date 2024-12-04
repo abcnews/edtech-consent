@@ -1,0 +1,21 @@
+.Main > [data-key='panel'] {
+  background-color: #fff;
+  z-index: 2;
+  position: relative;
+  padding: 2rem;
+  border: 1px solid #000;
+  border-radius: 1rem;
+  box-shadow: 0.5rem 0.5rem 0 0 #aaa;
+  max-width: calc(100dvw - 2rem);
+  margin-block-end: 80dvh;
+}
+
+@media (min-width: 700px) {
+  [data-key='panel'] {
+    margin-inline: 0;
+  }
+}
+
+#content {
+  overflow: hidden;
+}
