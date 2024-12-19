@@ -1,11 +1,5 @@
 <script lang="ts">
-  import {
-    getReadableStore,
-    getReadableStateStore,
-    getReadableProgressStore,
-    type State,
-    type Progress
-  } from '@abcnews/progress-utils';
+  import { getReadableStateStore, getReadableProgressStore } from '@abcnews/progress-utils';
   import acto from '@abcnews/alternating-case-to-object';
   import { onMount } from 'svelte';
   import './global.css';
@@ -44,27 +38,20 @@
   });
 
   const getText = (index?: number) => {
-    switch (index) {
-      case 0:
-        return `You've read (or at least scrolled past) ${getWordTotal($state?._index || 0)} words — thanks for sticking with it!
-        In the same time you could have read less than one per cent of the ClassDojo documents.`;
-      case 1:
-        return `If you’d spent this time reading ClassDojo's policy documents instead of this story, you'd be about ${((getWordTotal($state?._index || 0) / TERM_TOTAL_WORDS) * 100).toFixed(1)} per cent of the way through them. Unlikely to have made you much more confident making a decision to check that box on the consent form.`;
-      case 2:
-        return `With the density of the legalease, at this point it wouldn't be surprising if you found yourself with more questions and less confidence that you'd be making the right decision about ClassDojo. And you're only ${((getWordTotal($state?._index || 0) / TERM_TOTAL_WORDS) * 100).toFixed(1)} per cent into the effort!`;
-      case 3:
-        return '';
-      case 4:
-        return `Remember, ClassDojo is just one of the more than 20 services Kim was asked to give consent for. If one of them suffered a data breach how would it affect your child? Would you even know if there was a breach?`;
-      case 5:
-        return ``;
-      case 6:
-        return ``;
-    }
+    return index
+      ? [
+          false,
+          false,
+          `You've read (or at least scrolled past) ${getWordTotal($state?._index || 0)} words — thanks for sticking with it! In the same time you could have read less than one per cent of the ClassDojo documents.`,
+          `If you'd spent this time reading ClassDojo's policy documents instead of this story, you'd be about ${((getWordTotal($state?._index || 0) / TERM_TOTAL_WORDS) * 100).toFixed(1)} per cent of the way through them. Unlikely to have made you much more confident making a decision to check that box on the consent form.`,
+          `With the density of the legalease, at this point it wouldn't be surprising if you found yourself with more questions and less confidence that you'd be making the right decision about ClassDojo. And you're only ${((getWordTotal($state?._index || 0) / TERM_TOTAL_WORDS) * 100).toFixed(1)} per cent into the effort!`,
+          `Remember, ClassDojo is just one of the more than 20 services Kim was asked to give consent for. If one of them suffered a data breach how would it affect your child? Would you even know if there was a breach?`
+        ][index]
+      : false;
   };
 </script>
 
-{#if $progress?.envelope > 0 && $progress?.region < 1}
+{#if $progress?.envelope > 0 && $progress?.region < 1 && getText($state?._index)}
   <div transition:fade class="container">
     <div class="inner">
       <p>{getText($state?._index) || ''}</p>

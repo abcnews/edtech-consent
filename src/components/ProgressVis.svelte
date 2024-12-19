@@ -3,6 +3,9 @@
   export let articleTotal: number;
   export let termsTotal: number;
 
+  const BLOCKS = 100;
+  const wordsPerBlock = articleTotal / BLOCKS;
+
   function createLinearScale(domain: [number, number], range: [number, number] = [0, 1], clamp: boolean = false) {
     return (value: number) => {
       if (domain[0] === domain[1] || range[0] === range[1]) {
@@ -20,12 +23,20 @@
 </script>
 
 <div class="container">
-  <div style="--side: {Math.sqrt(scale(articleTotal))}px;" class="square">
-    <div style="--side: {Math.sqrt(scale(words))}px;"></div>
+  <div class="story square" style="--side: {Math.ceil(Math.sqrt(scale(articleTotal)))}px;">
+    {#each new Array(100) as _, i}
+      <div class="unit" class:filled={i <= words / wordsPerBlock}></div>
+    {/each}
   </div>
-
-  <div style="--side: {Math.sqrt(scale(termsTotal))}px;" class="square">
-    <div style="--side: {Math.sqrt(scale(words))}px;"></div>
+  <div
+    class="terms square"
+    style="--side: {Math.ceil(Math.sqrt(scale(termsTotal)))}px; --side-count: {Math.ceil(
+      Math.sqrt(termsTotal / (articleTotal / 100))
+    )};"
+  >
+    {#each new Array(Math.ceil(termsTotal / (articleTotal / 100))) as _, i}
+      <div class="unit" class:filled={i <= words / wordsPerBlock}></div>
+    {/each}
   </div>
 </div>
 
@@ -36,20 +47,27 @@
     justify-content: space-around;
     align-items: flex-end;
   }
+
+  .unit {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .unit.filled {
+    background-color: #fff;
+  }
+
   .square {
+    display: grid;
+    gap: 1px;
     width: var(--side);
     height: var(--side);
     position: relative;
     box-sizing: content-box;
     background-color: #fdb39d66;
+    grid-template-columns: repeat(10, 1fr);
   }
 
-  .square div {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: var(--side);
-    height: var(--side);
-    background-color: antiquewhite;
+  .terms {
+    grid-template-columns: repeat(var(--side-count), 1fr);
   }
 </style>
