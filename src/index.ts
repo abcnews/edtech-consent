@@ -7,7 +7,9 @@ import ImageFader from './components/ImageFader.svelte';
 
 Promise.all([proxy('edtech-consent'), whenOdysseyLoaded]).then(() => {
   let [appMountEl] = selectMounts('edtechconsent');
-  if (appMountEl) initComponent(appMountEl, App);
+  if (appMountEl) {
+    initComponent(appMountEl, App);
+  }
 
   let imageFaderEls = document.querySelectorAll('[data-key="imagefader"]');
   Array.from(imageFaderEls).forEach(el => {

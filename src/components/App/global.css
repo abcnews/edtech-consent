@@ -5,6 +5,7 @@
   --sl-panel-padding-block: 32px;
   --sl-img-width: calc(100% - 25px);
   --sl-img-margin-inline: 12px;
+  --sl-full-bleed-margin: 20px;
 }
 
 @media (min-width: 700px) {
@@ -12,6 +13,7 @@
     --sl-border-radius: 32px;
     --sl-panel-padding-inline: 48px;
     --sl-panel-padding-block: 48px;
+    --sl-full-bleed-margin: 48px;
   }
 }
 
@@ -63,6 +65,10 @@
 
 .Main .ImageEmbed.ImageEmbed {
   margin-inline: var(--sl-img-margin-inline);
+}
+
+.Main > .ImageEmbed.ImageEmbed:not([class*='u-pull-']) {
+  width: calc(100% - var(--sl-img-margin-inline) * 2);
 }
 
 #content {

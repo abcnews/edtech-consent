@@ -113,8 +113,8 @@
   }
   .fader {
     position: relative;
-    width: calc(100vw - 20px);
-    margin-left: calc(-50vw + 10px + 50%);
+    width: calc(100vw - var(--sl-full-bleed-margin) * 2);
+    margin-left: calc(-50vw + var(--sl-full-bleed-margin) + 50%);
   }
 
   .container {
@@ -126,11 +126,11 @@
   picture img {
     object-fit: cover;
     position: absolute;
-    top: 10px;
+    top: var(--sl-full-bleed-margin);
     left: 0px;
     border-radius: var(--sl-border-radius);
     width: 100%;
-    height: calc(100dvh - 20px);
+    height: calc(100dvh - var(--sl-full-bleed-margin) * 2);
     display: block;
   }
 </style>

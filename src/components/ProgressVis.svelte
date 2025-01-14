@@ -19,7 +19,7 @@
     };
   }
 
-  const scale = createLinearScale([0, termsTotal], [0, 190000]);
+  const scale = createLinearScale([0, termsTotal], [0, 100000]);
 </script>
 
 <div class="container">
@@ -43,7 +43,7 @@
 <style>
   .container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     align-items: flex-end;
   }
@@ -69,5 +69,6 @@
 
   .terms {
     grid-template-columns: repeat(var(--side-count), 1fr);
+    margin-top: calc(var(--side) / var(--side-count) * 2);
   }
 </style>

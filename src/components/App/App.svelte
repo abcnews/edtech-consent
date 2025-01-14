@@ -41,7 +41,6 @@
     return index
       ? [
           false,
-          false,
           `You've read (or at least scrolled past) ${getWordTotal($state?._index || 0)} words — thanks for sticking with it! In the same time you could have read less than one per cent of the ClassDojo documents.`,
           `If you'd spent this time reading ClassDojo's policy documents instead of this story, you'd be about ${((getWordTotal($state?._index || 0) / TERM_TOTAL_WORDS) * 100).toFixed(1)} per cent of the way through them. Unlikely to have made you much more confident making a decision to check that box on the consent form.`,
           `With the density of the legalease, at this point it wouldn't be surprising if you found yourself with more questions and less confidence that you'd be making the right decision about ClassDojo. And you're only ${((getWordTotal($state?._index || 0) / TERM_TOTAL_WORDS) * 100).toFixed(1)} per cent into the effort!`,
@@ -67,7 +66,6 @@
 
 <style lang="scss">
   .container {
-    position: fixed;
     z-index: 1;
     margin: 0;
     left: 0;
@@ -77,12 +75,21 @@
     display: grid;
     justify-content: center;
     pointer-events: none;
+    padding: 12px;
+    max-width: 652.68px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    height: 100dvh;
   }
 
   .inner {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 600px;
+    width: 66%;
+    margin: auto;
   }
 </style>
