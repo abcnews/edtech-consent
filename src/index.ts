@@ -18,6 +18,7 @@ Promise.all([proxy('edtech-consent'), whenOdysseyLoaded]).then(() => {
 });
 
 const initComponent = (el: Element, Component) => {
+  // @ts-expect-error Block mount is always an element
   let appProps: any = acto(getMountValue(el));
   new Component({
     target: el,
