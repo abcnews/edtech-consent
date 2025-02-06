@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount, tick } from 'svelte';
+  import { onMount } from 'svelte';
+  import { quartIn } from 'svelte/easing';
   import { fetchOne, getImages } from '@abcnews/terminus-fetch';
   import url2cmid from '@abcnews/url2cmid';
   import { getReadableProgressStore } from '@abcnews/progress-utils';
@@ -56,7 +57,7 @@
 
     return {
       zone: zoneIndex + 1, // Zone numbers start at 1
-      percentageInZone: percentageInZone
+      percentageInZone: quartIn(percentageInZone)
     };
   };
 

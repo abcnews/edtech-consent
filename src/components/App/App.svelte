@@ -2,13 +2,10 @@
   import { getReadableStateStore, getReadableProgressStore } from '@abcnews/progress-utils';
   import acto from '@abcnews/alternating-case-to-object';
   import { onMount } from 'svelte';
-  import './global.css';
+  import './global.scss';
   import ProgressVis from '../ProgressVis.svelte';
-  import { fade } from 'svelte/transition';
-
-  const TERM_TOTAL_WORDS = 40403;
-
-  const sum = (arr, acc = d => d) => arr.reduce((t, d) => t + acc(d), 0);
+  import VisIntro from '../VisIntro.svelte';
+  import { BLOCKS, TERM_TOTAL_WORDS } from '../../constants';
 
   const state = getReadableStateStore('panel', {
     indicatorSelector: name => `[data-key="${name}"]`,
@@ -19,7 +16,7 @@
       }
       return {};
     },
-    regionThreshold: 0.1,
+    regionThreshold: 0.1, // This needs to be 1/2 of 1-interstitial space (which is 80dvh or 0.8) to guaranteed it won't be seen above the relevant panel
     shouldOptimiseIndicatorTracking: false
   });
 
@@ -28,52 +25,62 @@
   });
 
   let wordCounts: number[] = [];
+  let articleTotal = 0;
+  let readingProgress = 0;
 
-  const getWordTotal = (index: number) => sum(wordCounts.slice(0, index + 1));
+  // $: articleTotal = sum(wordCounts);
+  $: readingProgress = Math.round(articleTotal * $progress?.envelope || 0); // sum(wordCounts.slice(0, $state?._index || 0 + 1));
+  $: termsProgressPct = ((readingProgress / TERM_TOTAL_WORDS) * 100).toFixed(1);
+
+  $: wordsPerBlock = articleTotal / BLOCKS;
 
   onMount(() => {
+    articleTotal = document.querySelector('#content')?.textContent?.split(' ').length || 0;
     wordCounts = Array.from(document.querySelectorAll('[data-key="panel"]')).map(el => {
+      el.dataset.scheme = 'light';
       return el.textContent?.split(' ').length || 0;
     });
   });
 
-  const getText = (index?: number): string | false => {
-    const options: (string | false)[] = [
-      false,
-      `You've read (or at least scrolled past) ${getWordTotal($state?._index || 0)} words — thanks for sticking with it! In the same time you could have read less than one per cent of the ClassDojo documents.`,
-      `If you'd spent this time reading ClassDojo's policy documents instead of this story, you'd be about ${((getWordTotal($state?._index || 0) / TERM_TOTAL_WORDS) * 100).toFixed(1)} per cent of the way through them. Unlikely to have made you much more confident making a decision to check that box on the consent form.`,
-      `With the density of the legalease, at this point it wouldn't be surprising if you found yourself with more questions and less confidence that you'd be making the right decision about ClassDojo. And you're only ${((getWordTotal($state?._index || 0) / TERM_TOTAL_WORDS) * 100).toFixed(1)} per cent into the effort!`,
-      `Remember, ClassDojo is just one of the more than 20 services Kim was asked to give consent for. If one of them suffered a data breach how would it affect your child? Would you even know if there was a breach?`,
-      ' ',
-      ' ',
-      ' ',
-      ' ',
-      ' ',
-      ' '
-    ];
+  let interstitialTextOptions: (string | false)[] = [];
 
-    return index ? options[index] : false;
-  };
+  $: interstitialTextOptions = [
+    'a',
+    `You've read (or at least scrolled past) ${readingProgress} words — thanks for sticking with it! In the same time you could have read less than one per cent of the ClassDojo documents.`,
+    `If you'd spent this time reading ClassDojo's policy documents instead of this story, you'd be about ${termsProgressPct} per cent of the way through them. Unlikely to have made you much more confident making a decision to check that box on the consent form.`,
+    `With the density of the legalease, at this point it wouldn't be surprising if you found yourself with more questions and less confidence that you'd be making the right decision about ClassDojo. And you're only ${termsProgressPct} per cent into the effort!`,
+    `Remember, ClassDojo is just one of the more than 20 services Kim was asked to give consent for. If one of them suffered a data breach how would it affect your child? Would you even know if there was a breach?`,
+    ' ',
+    ' ',
+    ' ',
+    ' ',
+    ' ',
+    ' '
+  ];
 
-  const getAnnotations = (index?: number) => {
-    return index ? [][index] : false;
-  };
+  $: text = typeof $state?._index !== 'undefined' ? interstitialTextOptions[$state._index] : false;
 </script>
 
-<div class="container">
-  {#if $progress?.envelope > 0 && $progress?.region < 1 && getText($state?._index)}
-    <ProgressVis
-      text={getText($state?._index) || ''}
-      words={getWordTotal($state?._index || 0)}
-      articleTotal={sum(wordCounts)}
-      termsTotal={TERM_TOTAL_WORDS}
-    />
-  {/if}
-</div>
+<!-- <div style="position: fixed; top: 0; left: 0; z-index: 100;">
+  <p>Envelope: {$progress?.envelope}</p>
+  <p>Region: {$progress?.region}</p>
+  <p>Index: {$state?._index}</p>
+  <p>Reading progress: {readingProgress}</p>
+</div> -->
+
+{#if $progress?.envelope > 0 && $progress?.region < 1 && text}
+  <div class="container">
+    {#if $state?._index === 0}
+      <VisIntro {wordsPerBlock} {readingProgress} />
+    {:else}
+      <ProgressVis {text} {readingProgress} {wordsPerBlock} />
+    {/if}
+  </div>
+{/if}
 
 <style lang="scss">
   .container {
-    z-index: 1;
+    z-index: 0;
     margin: 0;
     padding: 12px;
     max-width: 590px;
