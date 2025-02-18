@@ -50,7 +50,7 @@
     `If you'd spent this time reading ClassDojo's policy documents instead of this story, you'd be about ${termsProgressPct} per cent of the way through them. Unlikely to have made you much more confident making a decision to check that box on the consent form.`,
     `With the density of the legalease, at this point it wouldn't be surprising if you found yourself with more questions and less confidence that you'd be making the right decision about ClassDojo. And you're only ${termsProgressPct} per cent into the effort!`,
     `Remember, ClassDojo is just one of the more than 20 services Kim was asked to give consent for. If one of them suffered a data breach how would it affect your child? Would you even know if there was a breach?`,
-    ' ',
+    `One thing you won't find in these lengthy documents, or the supporting information on the permission form, is `,
     ' ',
     ' ',
     ' ',

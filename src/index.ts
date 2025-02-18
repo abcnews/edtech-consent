@@ -4,6 +4,7 @@ import { getMountValue, Mount, selectMounts } from '@abcnews/mount-utils';
 import App from './components/App/App.svelte';
 import { proxy } from '@abcnews/dev-proxy';
 import ImageFader from './components/ImageFader.svelte';
+import Sticker from './components/Sticker.svelte';
 
 Promise.all([proxy('edtech-consent'), whenOdysseyLoaded]).then(() => {
   let [appMountEl] = selectMounts('edtechconsent');
@@ -11,10 +12,16 @@ Promise.all([proxy('edtech-consent'), whenOdysseyLoaded]).then(() => {
     initComponent(appMountEl, App);
   }
 
+  Array.from(selectMounts('sticker')).forEach(el => {
+    initComponent(el, Sticker);
+  });
+
   let imageFaderEls = document.querySelectorAll('[data-key="imagefader"]');
   Array.from(imageFaderEls).forEach(el => {
     initComponent(el, ImageFader);
   });
+
+  updateIframeColourMode();
 });
 
 const initComponent = (el: Element, Component) => {
@@ -24,7 +31,6 @@ const initComponent = (el: Element, Component) => {
     target: el,
     props: { ...appProps, children: el.children }
   });
-  updateIframeColourMode();
 };
 
 if (process.env.NODE_ENV === 'development') {

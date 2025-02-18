@@ -28,16 +28,12 @@
     display: grid;
 
     /* Default supports regular mobile layout with a portrait container aspect ratio */
-    grid-template-columns: repeat(10, 10%);
+    grid-template-columns: repeat(20, 5%);
     grid-template-rows: auto auto auto;
     grid-template-areas:
-      'a a b b b b b b b b'
-      'c c c c c c c c c c'
-      'd d d d d d d d d d';
-    grid-template-areas:
-      'a b b b b b b b b b'
-      'c c c c c c c c c c'
-      'd d d d d e e e e e';
+      'a a b b b b b b b b b b b b b b b b b b'
+      'c c c c c c c c c c c c c c c c c c c c'
+      'd d d d d d d d d d e e e e e e e e e e';
   }
 
   .square {
@@ -89,12 +85,24 @@
     justify-content: flex-start;
     align-items: center;
   }
+  .label-terms span {
+    margin-left: 1em;
+  }
 
   @container (max-width: 430px) {
+    .container {
+      grid-template-areas:
+        'a a a b b b b b b b b b b b b b b b b b'
+        'c c c c c c c c c c c c c c c c c c c c'
+        'd d d d d d d d d d d d d e e e e e e e';
+    }
     .label-terms {
       flex-direction: column;
-      justify-content: space-around;
+      justify-content: flex-start;
       align-items: start;
+    }
+    .label-terms span {
+      margin-left: 0;
     }
   }
 
@@ -104,7 +112,7 @@
     vertical-align: middle;
     width: 3em;
     height: 3em;
-    margin-inline: 1em;
+    margin-inline: 0em;
     content: '';
     background-image: var(--edtech-arrow);
     background-size: contain;
