@@ -1,9 +1,8 @@
 <script lang="ts">
   import { getReadableStateStore } from '@abcnews/progress-utils';
   import { onMount } from 'svelte';
-  import './global.scss';
-  import ProgressVis from '../ProgressVis.svelte';
-  import VisIntro from '../VisIntro.svelte';
+  import ProgressVis from './ProgressVis.svelte';
+  import VisIntro from './VisIntro.svelte';
   import { BLOCKS, TERM_TOTAL_WORDS } from '../../constants';
   import { sum } from '../../utils';
 
@@ -26,12 +25,13 @@
 
       const children = Array.from(parent.children);
       const words = sum(children.slice(0, children.indexOf(el)), d => d.textContent?.split(' ').length || 0);
+      console.log('words, TERM_TOTAL_WORDS :>> ', words, TERM_TOTAL_WORDS);
       const html = Array.from(el.children)
         .map(
           d =>
             `<p>${(d.textContent || '')
               .replace(/\s\d+\swords/, ` ${words} words`)
-              .replace(/\s\d+\sper\scent/, ` ${Math.ceil(words / TERM_TOTAL_WORDS)} per cent`)
+              .replace(/\s\d+\sper\scent/, ` ${((words / TERM_TOTAL_WORDS) * 100).toFixed(1)} per cent`)
               .replace('ClassDojo', '<span class="dojo">ClassDojo</span>')}</p>`
         )
         .join('');
@@ -44,7 +44,6 @@
   });
 
   $: interstitial = typeof $state?._index !== 'undefined' ? interstitials[$state?._index] : null;
-  $: console.log('interstitial :>> ', interstitial);
 </script>
 
 <!--

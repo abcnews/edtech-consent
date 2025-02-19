@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { BLOCKS, TERM_TOTAL_WORDS } from '../constants';
-  import Square from './Square.svelte';
+  import { BLOCKS, TERM_TOTAL_WORDS } from '../../constants';
+  import Square from './Unit.svelte';
 
   export let readingProgress: number;
   export let wordsPerBlock: number;

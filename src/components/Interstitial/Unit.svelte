@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { scrollDirection } from '../utils';
+  import { scrollDirection } from '../../utils';
   export let total: number; // Total number of units
   export let progress: number; // Filled units
   export let cellSize = 10;
