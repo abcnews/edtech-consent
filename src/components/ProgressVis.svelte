@@ -4,8 +4,8 @@
 
   export let readingProgress: number;
   export let wordsPerBlock: number;
+  export let content: string;
 
-  export let text: string = '';
   $: progress = Math.round(readingProgress / wordsPerBlock);
 </script>
 
@@ -14,10 +14,10 @@
   <div class="story square">
     <Square total={BLOCKS} {progress} />
   </div>
-  <p class="note">{text}</p>
+  <div class="note">{@html content}</div>
   <div class="label-terms"><span>ClassDojo documents</span></div>
   <div class="terms square">
-    <Square total={Math.ceil(TERM_TOTAL_WORDS / wordsPerBlock)} {progress} />
+    <Square fill="#FD7218" total={Math.ceil(TERM_TOTAL_WORDS / wordsPerBlock)} {progress} />
   </div>
 </div>
 

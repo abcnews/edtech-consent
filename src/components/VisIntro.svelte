@@ -4,6 +4,7 @@
 
   export let wordsPerBlock: number;
   export let readingProgress: number;
+  export let content: string;
 
   $: progress = Math.round(readingProgress / wordsPerBlock);
 </script>
@@ -13,11 +14,7 @@
   <div class="unit">
     <div class="viz"><Square total={1} progress={1} /></div>
   </div>
-  <p>
-    Keep that in mind — we'll use these circles to keep track of your progress through this story and compare it to the
-    scale of the task Kim had been asked to complete by her daughter's school.
-  </p>
-  <p>So far you've read about about <br />{readingProgress} words.</p>
+  {@html content}
   <div class="story">
     <div class="label-this-story"><span>This story</span></div>
     <div class="circles">
@@ -27,8 +24,6 @@
 </div>
 
 <style>
-  .container {
-  }
   .unit {
     display: flex;
     flex-direction: row;

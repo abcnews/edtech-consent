@@ -1,79 +1,59 @@
 <script lang="ts">
-  import { getReadableStateStore, getReadableProgressStore } from '@abcnews/progress-utils';
-  import acto from '@abcnews/alternating-case-to-object';
+  import { getReadableStateStore } from '@abcnews/progress-utils';
   import { onMount } from 'svelte';
   import './global.scss';
   import ProgressVis from '../ProgressVis.svelte';
   import VisIntro from '../VisIntro.svelte';
   import { BLOCKS, TERM_TOTAL_WORDS } from '../../constants';
+  import { sum } from '../../utils';
 
-  const state = getReadableStateStore('panel', {
-    indicatorSelector: name => `[data-key="${name}"]`,
-    indicatorStateParser: el => {
-      if (el instanceof HTMLElement) {
-        const dataStr = el.dataset.tag?.substring(10);
-        return acto(dataStr || '');
-      }
-      return {};
-    },
-    regionThreshold: 0.1, // This needs to be 1/2 of 1-interstitial space (which is 80dvh or 0.8) to guaranteed it won't be seen above the relevant panel
+  let state = getReadableStateStore('interstitial', {
+    indicatorSelector: name => `[data-key="${name}"],[id^="sticker"]`,
+    regionThreshold: 0.9,
+    regionTop: 0.1,
     shouldOptimiseIndicatorTracking: false
   });
-
-  const progress = getReadableProgressStore('panel', {
-    indicatorSelector: name => `[data-key="${name}"]`
-  });
-
-  let wordCounts: number[] = [];
+  let interstitials: { html: string; words: number }[] = [];
   let articleTotal = 0;
-  let readingProgress = 0;
-
-  // $: articleTotal = sum(wordCounts);
-  $: readingProgress = Math.round(articleTotal * $progress?.envelope || 0); // sum(wordCounts.slice(0, $state?._index || 0 + 1));
-  $: termsProgressPct = ((readingProgress / TERM_TOTAL_WORDS) * 100).toFixed(1);
-
-  $: wordsPerBlock = articleTotal / BLOCKS;
+  let wordsPerBlock: number;
 
   onMount(() => {
-    articleTotal = document.querySelector('#content')?.textContent?.split(' ').length || 0;
-    wordCounts = Array.from(document.querySelectorAll('[data-key="panel"]')).map(el => {
-      el.dataset.scheme = 'light';
-      return el.textContent?.split(' ').length || 0;
+    interstitials = Array.from(document.querySelectorAll('[data-key="interstitial"]')).flatMap(el => {
+      const parent = el.parentElement;
+      if (!parent) return [];
+
+      const children = Array.from(parent.children);
+      const words = sum(children.slice(0, children.indexOf(el)), d => d.textContent?.split(' ').length || 0);
+      const html = Array.from(el.children)
+        .map(
+          d =>
+            `<p>${(d.textContent || '')
+              .replace(/\s\d+\swords/, ` ${words} words`)
+              .replace(/\s\d+\sper\scent/, ` ${Math.ceil(words / TERM_TOTAL_WORDS)} per cent`)
+              .replace('ClassDojo', '<span class="dojo">ClassDojo</span>')}</p>`
+        )
+        .join('');
+      el.innerHTML = '';
+      return [{ html, words }];
     });
+    articleTotal = document.querySelector('#content')?.textContent?.split(' ').length || 0;
+    wordsPerBlock = articleTotal / BLOCKS;
   });
 
-  let interstitialTextOptions: (string | false)[] = [];
-
-  $: interstitialTextOptions = [
-    'a',
-    `You've read (or at least scrolled past) ${readingProgress} words — thanks for sticking with it! In the same time you could have read less than one per cent of the ClassDojo documents.`,
-    `If you'd spent this time reading ClassDojo's policy documents instead of this story, you'd be about ${termsProgressPct} per cent of the way through them. Unlikely to have made you much more confident making a decision to check that box on the consent form.`,
-    `With the density of the legalease, at this point it wouldn't be surprising if you found yourself with more questions and less confidence that you'd be making the right decision about ClassDojo. And you're only ${termsProgressPct} per cent into the effort!`,
-    `Remember, ClassDojo is just one of the more than 20 services Kim was asked to give consent for. If one of them suffered a data breach how would it affect your child? Would you even know if there was a breach?`,
-    `One thing you won't find in these lengthy documents, or the supporting information on the permission form, is `,
-    ' ',
-    ' ',
-    ' ',
-    ' ',
-    ' '
-  ];
-
-  $: text = typeof $state?._index !== 'undefined' ? interstitialTextOptions[$state._index] : false;
+  $: interstital = typeof $state?._index !== 'undefined' ? interstitials[$state?._index] : null;
 </script>
 
-<!-- <div style="position: fixed; top: 0; left: 0; z-index: 100;">
-  <p>Envelope: {$progress?.envelope}</p>
-  <p>Region: {$progress?.region}</p>
-  <p>Index: {$state?._index}</p>
-  <p>Reading progress: {readingProgress}</p>
+<!--
+<div style="position: fixed; top: 0; left: 0; z-index: 100; background: white; padding: 12px;">
+  {JSON.stringify($state, null, 2)}
 </div> -->
 
-{#if $progress?.envelope > 0 && $progress?.region < 1 && text}
+{#if interstital && $state?.interstitial !== false}
   <div class="container">
-    {#if $state?._index === 0}
-      <VisIntro {wordsPerBlock} {readingProgress} />
+    {#if $state?._index === 1}
+      <VisIntro {wordsPerBlock} readingProgress={interstital.words} content={interstital.html} />
     {:else}
-      <ProgressVis {text} {readingProgress} {wordsPerBlock} />
+      <ProgressVis {wordsPerBlock} readingProgress={interstital.words} content={interstital.html} />
     {/if}
   </div>
 {/if}

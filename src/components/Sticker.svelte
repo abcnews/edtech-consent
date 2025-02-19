@@ -6,7 +6,9 @@
   export let name;
 </script>
 
-<img src={stickers[name]} alt="Sticker" class="sticker" />
+{#if stickers[name]}
+  <img src={stickers[name]} alt="" class="sticker" role="none" />
+{/if}
 
 <style>
   img {

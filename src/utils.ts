@@ -30,4 +30,8 @@ export const scrollDirection = readable<'up' | 'down'>('down', set => {
   return () => window.removeEventListener('scroll', listener);
 });
 
-export const sum = (arr, acc = d => d) => arr.reduce((t, d) => t + acc(d), 0);
+export function sum(arr: number[]): number;
+export function sum<T>(arr: T[], acc: (d: T) => number): number;
+export function sum<T>(arr: T[], acc: (d: T) => number = d => d as unknown as number): number {
+  return arr.reduce((t, d) => t + acc(d), 0);
+}

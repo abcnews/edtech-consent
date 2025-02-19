@@ -26,12 +26,6 @@ body {
   }
 }
 
-.Header.Header {
-  --od-colour-theme-text-inverse: #1a1b92;
-  --od-colour-theme-text-accent: #1a1b92;
-  --od-colour-theme-tag: #fff;
-}
-
 .Header h1 {
   border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
   padding-bottom: 2rem;
@@ -63,8 +57,8 @@ body {
   margin-block-end: 0;
 }
 
-.Main > [data-tag*='stats'] {
-  margin-block-end: 80dvh;
+.Main > [data-key='interstitial'] {
+  height: 80dvh;
 }
 
 .Main .ImageEmbed .Picture {
@@ -108,13 +102,12 @@ figure[data-uri="coremedia://image/104946302"]
     padding: 1rem;
     font-size: 1rem;
     color: #000;
+    font-weight: bold;
     cite {
       display: block;
       font-size: 0.8rem;
       font-style: normal;
-      span {
-        font-weight: bold;
-      }
+      font-weight: normal;
     }
   }
   @media (min-width: 500px) {
