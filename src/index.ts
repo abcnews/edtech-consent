@@ -21,6 +21,7 @@ Promise.all([proxy('edtech-consent'), whenOdysseyLoaded]).then(() => {
     initComponent(el, ImageFader);
   });
 
+  updatePanelColourMode();
   updateIframeColourMode();
 });
 
@@ -36,6 +37,12 @@ const initComponent = (el: Element, Component) => {
 if (process.env.NODE_ENV === 'development') {
   console.debug(`[edtech-consent] public path: ${__webpack_public_path__}`);
 }
+
+const updatePanelColourMode = () => {
+  Array.from(document.querySelectorAll('[data-key="panel"')).forEach(el => {
+    el.setAttribute('data-scheme', 'light');
+  });
+};
 
 const updateIframeColourMode = () => {
   // Set correct mode for Datawrapper embeds, based on current background
