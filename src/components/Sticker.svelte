@@ -1,7 +1,9 @@
 <script>
   import monkey from './monkey-optimised.svg';
+  import pencil from './pencil-optimised.svg';
+  import scribble from './scribble-optimised.svg';
 
-  const stickers = { monkey };
+  const stickers = { monkey, pencil, scribble };
 
   export let name;
 </script>
@@ -15,5 +17,6 @@
     display: block;
     margin: 0 auto;
     max-width: 200px;
+    max-height: 200px;
   }
 </style>

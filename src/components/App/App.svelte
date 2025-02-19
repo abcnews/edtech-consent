@@ -7,8 +7,10 @@
   import { BLOCKS, TERM_TOTAL_WORDS } from '../../constants';
   import { sum } from '../../utils';
 
+  const indicatorSelector = (name: string) => `[data-key="${name}"],[id^="sticker"]`;
+
   let state = getReadableStateStore('interstitial', {
-    indicatorSelector: name => `[data-key="${name}"],[id^="sticker"]`,
+    indicatorSelector,
     regionThreshold: 0.9,
     regionTop: 0.1,
     shouldOptimiseIndicatorTracking: false
@@ -18,7 +20,7 @@
   let wordsPerBlock: number;
 
   onMount(() => {
-    interstitials = Array.from(document.querySelectorAll('[data-key="interstitial"]')).flatMap(el => {
+    interstitials = Array.from(document.querySelectorAll(indicatorSelector('interstitial'))).flatMap(el => {
       const parent = el.parentElement;
       if (!parent) return [];
 
@@ -33,6 +35,7 @@
               .replace('ClassDojo', '<span class="dojo">ClassDojo</span>')}</p>`
         )
         .join('');
+
       el.innerHTML = '';
       return [{ html, words }];
     });
@@ -40,7 +43,8 @@
     wordsPerBlock = articleTotal / BLOCKS;
   });
 
-  $: interstital = typeof $state?._index !== 'undefined' ? interstitials[$state?._index] : null;
+  $: interstitial = typeof $state?._index !== 'undefined' ? interstitials[$state?._index] : null;
+  $: console.log('interstitial :>> ', interstitial);
 </script>
 
 <!--
@@ -48,12 +52,12 @@
   {JSON.stringify($state, null, 2)}
 </div> -->
 
-{#if interstital && $state?.interstitial !== false}
+{#if interstitial && $state?.interstitial !== false}
   <div class="container">
     {#if $state?._index === 1}
-      <VisIntro {wordsPerBlock} readingProgress={interstital.words} content={interstital.html} />
+      <VisIntro {wordsPerBlock} readingProgress={interstitial.words} content={interstitial.html} />
     {:else}
-      <ProgressVis {wordsPerBlock} readingProgress={interstital.words} content={interstital.html} />
+      <ProgressVis {wordsPerBlock} readingProgress={interstitial.words} content={interstitial.html} />
     {/if}
   </div>
 {/if}
