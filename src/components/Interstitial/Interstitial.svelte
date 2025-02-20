@@ -25,7 +25,6 @@
 
       const children = Array.from(parent.children);
       const words = sum(children.slice(0, children.indexOf(el)), d => d.textContent?.split(' ').length || 0);
-      console.log('words, TERM_TOTAL_WORDS :>> ', words, TERM_TOTAL_WORDS);
       const html = Array.from(el.children)
         .map(
           d =>
@@ -65,12 +64,12 @@
   .container {
     z-index: 0;
     margin: 0;
-    padding: 12px;
-    max-width: 590px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    padding: 0 var(--sl-border-radius);
+    max-width: 100%;
+    // position: fixed;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
     height: 75dvh;
     width: calc(100vw - 24px);
     container-type: size;
