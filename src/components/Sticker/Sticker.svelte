@@ -2,6 +2,8 @@
   import monkey from './monkey-optimised.svg';
   import pencil from './pencil-optimised.svg';
   import scribble from './scribble-optimised.svg';
+  import sunlion from './sunlion-optimised.svg';
+  import rainbow from './rainbow-optimised.svg';
 
   const stickers = { monkey, pencil, scribble };
 
