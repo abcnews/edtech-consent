@@ -29,7 +29,7 @@
           height={cellSize}
           class="unit"
           {fill}
-          class:filled={i * sideCount + j < progress}
+          class:filled={i * sideCount + j < progress + 0.5}
           style="transition-delay: {$scrollDirection === 'down'
             ? animationDelay * (i * sideCount + j)
             : animationDelay * (progress - (i * sideCount + j))}ms"

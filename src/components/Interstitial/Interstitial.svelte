@@ -19,7 +19,7 @@
   let wordsPerBlock: number;
 
   onMount(() => {
-    interstitials = Array.from(document.querySelectorAll(indicatorSelector('interstitial'))).flatMap(el => {
+    interstitials = Array.from(document.querySelectorAll(indicatorSelector('interstitial'))).flatMap((el, i) => {
       const parent = el.parentElement;
       if (!parent) return [];
 
@@ -50,28 +50,23 @@
   {JSON.stringify($state, null, 2)}
 </div> -->
 
-{#if interstitial && $state?.interstitial !== false}
-  <div class="container">
+<div class="interstitial">
+  {#if interstitial && $state?.interstitial !== false}
     {#if $state?._index === 1}
       <VisIntro {wordsPerBlock} readingProgress={interstitial.words} content={interstitial.html} />
     {:else}
       <ProgressVis {wordsPerBlock} readingProgress={interstitial.words} content={interstitial.html} />
     {/if}
-  </div>
-{/if}
+  {/if}
+</div>
 
 <style lang="scss">
-  .container {
+  .interstitial {
     z-index: 0;
     margin: 0;
-    padding: 0 var(--sl-border-radius);
-    max-width: 100%;
-    // position: fixed;
-    // top: 50%;
-    // left: 50%;
-    // transform: translate(-50%, -50%);
+    padding: 0 calc(var(--sl-border-radius) + 10px);
     height: 75dvh;
-    width: calc(100vw - 24px);
+    width: 100%;
     container-type: size;
     display: flex;
     justify-content: center;
