@@ -152,6 +152,18 @@ figure[data-uri="coremedia://image/104946302"]
   }
 }
 
+#content {
+  @media (min-width: 0px) {
+    .u-pull,
+    .is-pullquote {
+      width: calc(100% - var(--sl-img-margin-inline) * 2);
+    }
+    .is-pullquote {
+      margin-inline: auto;
+    }
+  }
+}
+
 #content .is-piecemeal .Block-content[class*='u-richtext'] > * {
   color: #fff;
 }
