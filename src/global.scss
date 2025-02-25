@@ -64,6 +64,9 @@ main ~ main:last-of-type:not([class]) {
   max-width: calc(100dvw - 20px);
   color: var(--sl-text-primary);
   color-scheme: light;
+  .Caption-attribution {
+    color: var(--sl-text-primary);
+  }
 }
 
 [data-component='Iframe']:has(iframe[src*='datawrapper']) {
@@ -149,6 +152,9 @@ figure[data-uri="coremedia://image/104946302"]
   }
 }
 
+#content .is-piecemeal .Block-content[class*='u-richtext'] > * {
+  color: #fff;
+}
 #content .is-piecemeal .Block-content[class*='u-richtext'] > ::before {
   background-color: #002866;
 }
