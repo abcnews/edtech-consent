@@ -153,6 +153,11 @@ figure[data-uri="coremedia://image/104946302"]
 }
 
 #content {
+  h2,
+  h3 {
+    font-family: (var(--od-font-stack-serif));
+  }
+
   @media (min-width: 0px) {
     .u-pull,
     .is-pullquote {
