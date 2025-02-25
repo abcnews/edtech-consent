@@ -101,6 +101,10 @@ main ~ main:last-of-type:not([class]) {
   overflow: visible;
 }
 
+.Block-media .Picture img {
+  object-position: top;
+}
+
 figure[data-uri="coremedia://image/104841022"],
 figure[data-uri="coremedia://image/104748368"],
 figure[data-uri="coremedia://image/104946302"]
