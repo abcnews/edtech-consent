@@ -107,37 +107,38 @@
       .cls-25 {
       filter: url(#luminosity-invert-noclip-2);
       }
+
       g#left {
-      animation: move 10s infinite;
+      animation: move 8s infinite;
       animation-timing-function: cubic-bezier (0.42, 0,1,1)
       }
 
       @keyframes move {
       from{
-      translate: 4px 0;
-      }
-      50%{
       translate: -12px 0;
       }
-      to{
+      50%{
       translate: 4px 0;
+      }
+      to{
+      translate: -12px 0;
       }
       }
 
       g#right {
-      animation: moveright 10s infinite;
+      animation: moveright 8s infinite;
       animation-timing-function: cubic-bezier (0.42, 0,1,1)
       }
 
       @keyframes moveright {
       from{
-      translate: 0 0;
-      }
-      50%{
       translate: -5.5px 0;
       }
-      to{
+      50%{
       translate: 0 0;
+      }
+      to{
+      translate: -5.5px 0;
       }
 
       }
