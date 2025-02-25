@@ -126,9 +126,9 @@
       grid-template-columns: repeat(20, 5%);
       grid-template-rows: auto 1fr auto;
       grid-template-areas:
-        'a b b b b b b b b b b b b b b d d d d d'
-        'e e e e e e e e e e e e e e e d d d d d'
-        'c c c c c c c c c c c c c c c c c c c c';
+        'a a b b b b b b b b b d d d d d d d d d'
+        'c c c c c c c c c c c d d d d d d d d d'
+        'c c c c c c c c c c c e e e e e e e e e';
     }
 
     .label-terms {
@@ -140,20 +140,11 @@
     }
 
     .label-terms::before {
-      content: none;
-      margin-left: 0;
+      transform: rotate(180deg);
     }
-    .label-terms::after {
-      transform: rotate(270deg);
-      display: inline-block;
-      vertical-align: middle;
-      width: 3em;
-      height: 3em;
-      content: '';
-      background-image: var(--edtech-arrow);
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
+
+    .note {
+      margin-right: 1em;
     }
   }
 </style>
