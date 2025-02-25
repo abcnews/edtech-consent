@@ -71,5 +71,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: var(--od-font-stack-serif);
   }
 </style>
