@@ -81,7 +81,7 @@ main ~ main:last-of-type:not([class]) {
 }
 
 .Main > [data-key='interstitial'] {
-  height: lvh;
+  height: 100lvh;
 }
 
 .Main > [data-key='interstitial']:first-of-type {
