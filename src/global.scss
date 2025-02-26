@@ -207,3 +207,7 @@ h2:has(+ ul + .FormatCredit) {
   position: relative;
   overflow: hidden;
 }
+
+[id^='stickerNAMEmonkey'] img {
+  margin-inline: var(--od-space-component-inline-margin) !important;
+}
