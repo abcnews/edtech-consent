@@ -46,7 +46,7 @@ main {
 }
 
 [data-component='NewsFooter'],
-main ~ main:last-of-type:not([class]) {
+main#content ~ main:last-of-type:not([class]) {
   position: relative;
   z-index: 3;
   margin-top: 0;
