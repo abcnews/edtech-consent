@@ -207,7 +207,7 @@ ul:has(+ .FormatCredit),
 h2:has(+ ul + .FormatCredit) {
   background: var(--bg);
   padding-block-start: 1em;
-  margin: 0;
+  margin: 0 !important;
   z-index: 2;
   position: relative;
   overflow: hidden;

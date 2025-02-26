@@ -45,7 +45,7 @@
   img {
     display: block;
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 100%;
     max-height: 200px;
   }
 </style>
