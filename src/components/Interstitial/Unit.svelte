@@ -20,7 +20,7 @@
   {#each new Array(sideCount) as _, i}
     {#each new Array(sideCount) as _, j}
       {#if i * sideCount + j < total}
-        <rect
+        <!-- <rect
           shape-rendering="geometricPrecision"
           color-rendering="optimizeQuality"
           x={j * (cellSize + gap)}
@@ -30,6 +30,16 @@
           class="unit"
           {fill}
           class:filled={i * sideCount + j < progress + 0.5}
+          style="transition-delay: {$scrollDirection === 'down'
+            ? animationDelay * (i * sideCount + j)
+            : animationDelay * (progress - (i * sideCount + j))}ms"
+        /> -->
+        <circle
+          class="unit"
+          cx={j * (cellSize + gap) + cellSize / 2}
+          cy={i * (cellSize + gap) + cellSize / 2}
+          r={cellSize / 2 - 0.5}
+          class:filled={i * sideCount + j < progress}
           style="transition-delay: {$scrollDirection === 'down'
             ? animationDelay * (i * sideCount + j)
             : animationDelay * (progress - (i * sideCount + j))}ms"

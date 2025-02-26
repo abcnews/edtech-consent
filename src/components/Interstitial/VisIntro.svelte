@@ -5,6 +5,7 @@
   export let wordsPerBlock: number;
   export let readingProgress: number;
   export let content: string;
+  export let articleTotal: number;
 
   $: progress = Math.round(readingProgress / wordsPerBlock);
 </script>
@@ -16,7 +17,9 @@
   </div>
   {@html content}
   <div class="story">
-    <div class="label-this-story"><span>This story</span></div>
+    <div class="label-this-story">
+      <span>You've read {Math.round((readingProgress / articleTotal) * 100)} per cent of this story</span>
+    </div>
     <div class="circles">
       <Square total={BLOCKS} {progress} />
     </div>

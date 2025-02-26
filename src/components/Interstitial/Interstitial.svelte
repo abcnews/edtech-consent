@@ -38,7 +38,8 @@
       el.innerHTML = '';
       return [{ html, words }];
     });
-    articleTotal = document.querySelector('#content')?.textContent?.split(' ').length || 0;
+
+    articleTotal = interstitials[interstitials.length - 1].words;
     wordsPerBlock = articleTotal / BLOCKS;
   });
 
@@ -53,9 +54,9 @@
 <div class="interstitial">
   {#if interstitial && $state?.interstitial !== false}
     {#if $state?._index === 1}
-      <VisIntro {wordsPerBlock} readingProgress={interstitial.words} content={interstitial.html} />
+      <VisIntro {wordsPerBlock} {articleTotal} readingProgress={interstitial.words} content={interstitial.html} />
     {:else}
-      <ProgressVis {wordsPerBlock} readingProgress={interstitial.words} content={interstitial.html} />
+      <ProgressVis {wordsPerBlock} {articleTotal} readingProgress={interstitial.words} content={interstitial.html} />
     {/if}
   {/if}
 </div>

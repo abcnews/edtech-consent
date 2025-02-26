@@ -5,7 +5,7 @@
   import sunlion from './sunlion-optimised.svg';
   import rainbow from './rainbow-optimised.svg';
 
-  const stickers = { monkey, pencil, scribble };
+  const stickers = { monkey, pencil, scribble, sunlion, rainbow };
 
   export let name;
 </script>
