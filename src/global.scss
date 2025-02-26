@@ -57,6 +57,10 @@ main ~ main:last-of-type:not([class]) {
   z-index: 4;
 }
 
+.Picture[href='/news/104605796'] .Sizer {
+  background-color: transparent;
+}
+
 .Main > [data-key='panel'] {
   background-color: #fff;
   z-index: 2;

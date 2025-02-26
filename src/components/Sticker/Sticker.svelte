@@ -5,7 +5,34 @@
   import sunlion from './sunlion-optimised.svg';
   import rainbow from './rainbow-optimised.svg';
 
-  const stickers = { monkey, pencil, scribble, sunlion, rainbow };
+  import bagtag from './bagtag.png';
+  import doubleendedpencil from './doubleendedpencil.png';
+  import orangepencil from './orangepencil.png';
+  import outlinedshavings from './outlinedshavings.png';
+  import protractor from './protractor.png';
+  import ruler from './ruler.png';
+  import scissors from './scissors.png';
+  import scribblescissors from './scribblescissors.png';
+  import shavings from './shavings.png';
+  import sunlionbagtag from './sunlionbagtag.png';
+
+  const stickers = {
+    monkey,
+    pencil,
+    scribble,
+    sunlion,
+    rainbow,
+    bagtag,
+    doubleendedpencil,
+    orangepencil,
+    outlinedshavings,
+    protractor,
+    ruler,
+    scissors,
+    scribblescissors,
+    shavings,
+    sunlionbagtag
+  };
 
   export let name;
 </script>
@@ -18,7 +45,7 @@
   img {
     display: block;
     margin: 0 auto;
-    max-width: 200px;
+    max-width: 600px;
     max-height: 200px;
   }
 </style>

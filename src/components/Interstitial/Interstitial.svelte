@@ -30,7 +30,10 @@
           d =>
             `<p>${(d.textContent || '')
               .replace(/\s\d+\swords/, ` ${words} words`)
-              .replace(/\s\d+\sper\scent/, ` ${((words / TERM_TOTAL_WORDS) * 100).toFixed(1)} per cent`)
+              .replace(
+                /\s\d+\sper\scent/,
+                ` ${((words / TERM_TOTAL_WORDS) * 100).toFixed(1).replace(/\.0$/, '')} per cent`
+              )
               .replace('ClassDojo', '<span class="dojo">ClassDojo</span>')}</p>`
         )
         .join('');
