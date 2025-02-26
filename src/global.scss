@@ -57,6 +57,11 @@ main#content ~ main:last-of-type:not([class]) {
   z-index: 4;
 }
 
+.Header {
+  position: relative;
+  z-index: 5;
+}
+
 .Header .Header-content h1 {
   margin-top: 0;
 }
