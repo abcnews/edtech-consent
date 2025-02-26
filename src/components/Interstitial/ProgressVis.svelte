@@ -101,8 +101,10 @@
     }
     .label-terms {
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: start;
+      position: relative;
+      top: -1em;
     }
     .label-terms span {
       margin-left: 0;

@@ -57,6 +57,10 @@ main#content ~ main:last-of-type:not([class]) {
   z-index: 4;
 }
 
+.Header .Header-content h1 {
+  margin-top: 0;
+}
+
 .Picture[href='/news/104605796'] .Sizer {
   background-color: transparent;
 }
@@ -192,4 +196,14 @@ figure[data-uri="coremedia://image/104946302"]
   margin: 0em;
   font-style: normal;
   color: #fff;
+}
+
+ul:has(+ .FormatCredit),
+h2:has(+ ul + .FormatCredit) {
+  background: var(--bg);
+  padding-block-start: 1em;
+  margin: 0;
+  z-index: 2;
+  position: relative;
+  overflow: hidden;
 }
